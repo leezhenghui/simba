@@ -30,13 +30,19 @@
 
 import sys
 import os
-from os.path import join, isfile
+from os.path import join, isfile, sep
 import subprocess
 import shutil
 from base64 import b64decode
 
 from SCons.Script import DefaultEnvironment
-from platformio.builder.tools.platformio import SRC_DEFAULT_FILTER
+# from platformio.builder.tools.platformio import SRC_DEFAULT_FILTER
+
+SRC_DEFAULT_FILTER = " ".join([
+    "+<*>", "-<.git%s>" % sep, "-<svn%s>" % sep,
+    "-<example%s>" % sep, "-<examples%s>" % sep,
+    "-<test%s>" % sep, "-<tests%s>" % sep
+])
 
 # Map the PlatformIO board name to the Simba board name.
 BOARD_MAP = {
@@ -336,6 +342,7 @@ BOARDS = {
             "3pp/lwip-1.4.1/src/include/ipv4", 
             "3pp/mbedtls/include", 
             "src/kernel/ports/avr/gnu", 
+            "src/oam/ports", 
             "src/oam/ports/avr", 
             "3pp/spiffs-0.3.5/src"
         ], 
@@ -1629,6 +1636,7 @@ BOARDS = {
             "-Werror", 
             "-nostdlib", 
             "-mlongcalls", 
+            "-mforce-l32", 
             "-mtext-section-literals", 
             "-ffunction-sections", 
             "-fno-inline-functions", 
@@ -1645,6 +1653,7 @@ BOARDS = {
             "-Os", 
             "-Werror", 
             "-nostdlib", 
+            "-mforce-l32", 
             "-mlongcalls", 
             "-mtext-section-literals", 
             "-ffunction-sections", 
@@ -1670,8 +1679,10 @@ BOARDS = {
             "src", 
             "3pp/compat", 
             "src/drivers/ports/esp", 
+            "src/drivers/ports/software", 
             "3pp/mbedtls/include", 
             "src/kernel/ports/esp/gnu", 
+            "src/oam/ports", 
             "src/oam/ports/esp", 
             "3pp/spiffs-0.3.5/src", 
             "3pp/atto", 
@@ -1959,9 +1970,11 @@ BOARDS = {
             "3pp/esp32/inc/lwip/include/lwip/port", 
             "src", 
             "3pp/compat", 
+            "src/drivers/ports/software", 
             "src/drivers/ports/esp32", 
             "3pp/mbedtls/include", 
             "src/kernel/ports/esp32/gnu", 
+            "src/oam/ports", 
             "src/oam/ports/esp32", 
             "3pp/spiffs-0.3.5/src", 
             "3pp/atto", 
@@ -3145,6 +3158,7 @@ BOARDS = {
             "src", 
             "3pp/compat", 
             "src/drivers/ports/esp32", 
+            "src/drivers/ports/software", 
             "3pp/mbedtls/include", 
             "src/kernel/ports/esp32/gnu", 
             "src/oam/ports/esp32", 

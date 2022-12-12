@@ -44,7 +44,7 @@ struct module_t {
 };
 
 #if CONFIG_SOFTWARE_I2C == 1
-#    include "../ports/software/i2c_port.i"
+#    include "i2c_port_software.i"
 #else
 #    include "i2c_port.i"
 #endif

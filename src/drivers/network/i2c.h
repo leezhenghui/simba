@@ -32,7 +32,7 @@
 #include "simba.h"
 
 #if CONFIG_SOFTWARE_I2C == 1
-#    include "../ports/software/i2c_port.h"
+#    include "i2c_port_software.h"
 #else
 #    include "i2c_port.h"
 #endif

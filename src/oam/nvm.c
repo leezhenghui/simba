@@ -29,7 +29,7 @@
 #include "simba.h"
 
 #if CONFIG_NVM_EEPROM_SOFT == 1
-#    include "ports/nvm_port_eeprom_soft.h"
+#    include "nvm_port_eeprom_soft.h"
 #else
 #    include "nvm_port.h"
 #endif
